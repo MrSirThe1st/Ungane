@@ -1,0 +1,109 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans:
+    "Source Sans 3", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-brand-peach: var(--brand-peach);
+  --color-brand-burgundy: var(--brand-burgundy);
+  --color-brand-terracotta: var(--brand-terracotta);
+  --color-brand-coral: var(--brand-coral);
+  --color-brand-charcoal: var(--brand-charcoal);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* UNGANE brand */
+  --brand-peach: #fedccb;
+  --brand-burgundy: #44242a;
+  --brand-terracotta: #b84646;
+  --brand-coral: #f47f80;
+  --brand-charcoal: #1f1315;
+
+  --background: #fedccb;
+  --foreground: #44242a;
+  --card: #fff5ee;
+  --card-foreground: #44242a;
+  --popover: #fff5ee;
+  --popover-foreground: #44242a;
+  --primary: #f47f80;
+  --primary-foreground: #1f1315;
+  --secondary: #b84646;
+  --secondary-foreground: #fff5ee;
+  --muted: #f5c9b5;
+  --muted-foreground: #5c3a40;
+  --accent: #f5c9b5;
+  --accent-foreground: #44242a;
+  --destructive: #b84646;
+  --border: #1f131520;
+  --input: #1f131525;
+  --ring: #f47f80;
+  --chart-1: #f47f80;
+  --chart-2: #b84646;
+  --chart-3: #44242a;
+  --chart-4: #fedccb;
+  --chart-5: #1f1315;
+  --radius: 0.625rem;
+  --sidebar: #44242a;
+  --sidebar-foreground: #fedccb;
+  --sidebar-primary: #f47f80;
+  --sidebar-primary-foreground: #1f1315;
+  --sidebar-accent: #5c343c;
+  --sidebar-accent-foreground: #fedccb;
+  --sidebar-border: #1f131540;
+  --sidebar-ring: #f47f80;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
