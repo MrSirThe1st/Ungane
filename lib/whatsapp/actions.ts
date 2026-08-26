@@ -102,7 +102,9 @@ export type ConversationListItem = {
   lastMessagePreview: string | null;
 };
 
-export async function listConversations(): Promise<ConversationListItem[]> {
+export async function listConversations(options?: {
+  query?: string;
+}): Promise<ConversationListItem[]> {
   const business = await requireCurrentBusiness();
   const supabase = await createClient();
 
@@ -172,7 +174,19 @@ export async function listConversations(): Promise<ConversationListItem[]> {
     });
   }
 
-  return items;
+  const q = options?.query?.trim().toLowerCase();
+  if (!q) return items;
+
+  return items.filter((item) => {
+    const haystack = [
+      item.customer.phoneNumber,
+      item.customer.firstName ?? "",
+      item.customer.lastName ?? "",
+    ]
+      .join(" ")
+      .toLowerCase();
+    return haystack.includes(q);
+  });
 }
 
 export type MessageView = {

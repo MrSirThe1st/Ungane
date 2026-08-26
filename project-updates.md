@@ -18,6 +18,12 @@ Use this file as the first project memory source before searching the codebase.
 - Impact: <contracts, tables, routes, folders, logic>
 - Tests: <added, updated, or deferred>
 
+## 2026-08-26
+- Change type: Frontend
+- Description: Dashboard metrics (clients, conversations, messages, RDV), quick actions, business profile edit in Settings, conversation search by name/phone.
+- Impact: `lib/dashboard/actions.ts`, `lib/business/actions.ts`, `lib/business/current.ts`, `lib/validations/business.ts`, `/dashboard`, `/settings`, `/conversations`, `components/dashboard/*`, `components/settings/business-profile-form.tsx`
+- Tests: deferred (manual: dashboard counts, edit business profile as owner, search conversations)
+
 ---
 
 ## 2026-08-02

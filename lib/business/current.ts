@@ -3,6 +3,7 @@ import { cache } from "react";
 import { getCachedUser } from "@/lib/supabase/user";
 import { createClient } from "@/lib/supabase/server";
 import { SafeError } from "@/lib/errors";
+import type { BusinessRole } from "@/types/api";
 import type { Business } from "@/types/domain";
 
 type BusinessRow = {
@@ -64,3 +65,25 @@ export async function requireCurrentBusiness(): Promise<Business> {
   }
   return business;
 }
+
+export const getCurrentMembership = cache(
+  async (): Promise<{ role: BusinessRole } | null> => {
+    const user = await getCachedUser();
+    if (!user) return null;
+
+    const business = await getCurrentBusiness();
+    if (!business) return null;
+
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("business_memberships")
+      .select("role")
+      .eq("user_id", user.id)
+      .eq("business_id", business.id)
+      .eq("status", "active")
+      .maybeSingle();
+
+    if (error || !data) return null;
+    return { role: data.role as BusinessRole };
+  },
+);

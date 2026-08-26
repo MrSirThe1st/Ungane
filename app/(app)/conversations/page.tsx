@@ -3,28 +3,31 @@ import { redirect } from "next/navigation";
 
 import { StubInboundSimulator } from "@/components/conversations/stub-inbound-simulator";
 import { PageHeader } from "@/components/shared/page-header";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { getEnv } from "@/config/env";
 import { getCurrentBusiness } from "@/lib/business/current";
-import { listConversations } from "@/lib/whatsapp/actions";
-import { getWhatsAppAccount } from "@/lib/whatsapp/actions";
+import { customerDisplayName } from "@/lib/customers/display";
+import {
+  getWhatsAppAccount,
+  listConversations,
+} from "@/lib/whatsapp/actions";
 
 export const dynamic = "force-dynamic";
 
-function displayName(item: {
-  firstName: string | null;
-  lastName: string | null;
-  phoneNumber: string;
-}) {
-  const name = [item.firstName, item.lastName].filter(Boolean).join(" ");
-  return name || item.phoneNumber;
-}
+type Props = {
+  searchParams: Promise<{ q?: string }>;
+};
 
-export default async function ConversationsPage() {
+export default async function ConversationsPage({ searchParams }: Props) {
   const business = await getCurrentBusiness();
   if (!business) redirect("/onboarding");
 
+  const params = await searchParams;
+  const query = params.q?.trim() ?? "";
+
   const [conversations, account] = await Promise.all([
-    listConversations(),
+    listConversations({ query: query || undefined }),
     getWhatsAppAccount(),
   ]);
   const isStub = getEnv().WHATSAPP_PROVIDER === "stub";
@@ -44,11 +47,25 @@ export default async function ConversationsPage() {
             </Link>
             .
           </p>
-        ) : null}
+        ) : (
+          <form className="mb-4 flex flex-wrap gap-2" method="get">
+            <Input
+              name="q"
+              defaultValue={query}
+              placeholder="Rechercher nom ou téléphone…"
+              className="max-w-sm"
+            />
+            <Button type="submit" variant="secondary">
+              Rechercher
+            </Button>
+          </form>
+        )}
 
         {conversations.length === 0 ? (
           <p className="text-muted-foreground mt-4 text-sm">
-            Aucune conversation pour le moment.
+            {query
+              ? "Aucune conversation ne correspond à votre recherche."
+              : "Aucune conversation pour le moment."}
           </p>
         ) : (
           <ul className="divide-border border-border mt-2 max-w-2xl divide-y rounded-lg border">
@@ -60,7 +77,7 @@ export default async function ConversationsPage() {
                 >
                   <div className="flex items-baseline justify-between gap-3">
                     <p className="font-medium">
-                      {displayName(c.customer)}
+                      {customerDisplayName(c.customer)}
                     </p>
                     {c.lastMessageAt ? (
                       <time className="text-muted-foreground text-xs">
