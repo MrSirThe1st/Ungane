@@ -11,6 +11,11 @@ export {
 } from "./customer";
 
 export {
+  updateBusinessFormSchema,
+  type UpdateBusinessFormInput,
+} from "./business";
+
+export {
   createCampaignSchema,
   createCampaignFormSchema,
   createTemplateFormSchema,
