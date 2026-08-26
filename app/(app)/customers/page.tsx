@@ -13,7 +13,7 @@ import { customerDisplayName } from "@/lib/customers/display";
 import { SUGGESTED_CUSTOMER_TAGS } from "@/lib/validations/customer";
 import { cn } from "@/lib/utils";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 type Props = {
   searchParams: Promise<{ q?: string; tag?: string }>;

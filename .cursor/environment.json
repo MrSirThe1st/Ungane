@@ -1,0 +1,10 @@
+{
+  "name": "Ungane",
+  "install": "pnpm install",
+  "terminals": [
+    {
+      "name": "dev",
+      "command": "pnpm dev"
+    }
+  ]
+}

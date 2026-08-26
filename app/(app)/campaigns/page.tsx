@@ -8,7 +8,7 @@ import { isBusinessOwner } from "@/lib/business/roles";
 import { listCampaigns, listTemplates } from "@/lib/campaigns/actions";
 import { cn } from "@/lib/utils";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 const statusLabel: Record<string, string> = {
   draft: "Brouillon",

@@ -19,6 +19,12 @@ Use this file as the first project memory source before searching the codebase.
 - Tests: <added, updated, or deferred>
 
 ## 2026-08-26
+- Change type: Infra
+- Description: CI limited to lint+typecheck; expanded Vitest coverage; ADR-002 caching on customers/campaigns/flows; short README + archived vision; demo seed script; `.env.example`; Cloud Agent `.cursor/environment.json`.
+- Impact: `.github/workflows/ci.yml`, `lib/validations/*.test.ts`, `app/(app)/{customers,campaigns,flows}/**`, `README.md`, `docs/archive/product-vision.md`, `scripts/seed-demo.mjs`, `.env.example`, `.cursor/environment.json`
+- Tests: added (auth, campaign, whatsapp schemas)
+
+## 2026-08-26
 - Change type: Frontend
 - Description: Rebranded UI to green SaaS theme (forest green primary, mint accents, light canvas) aligned with Waptoz-style references. Plus Jakarta Sans, light sidebar with green active state, softer cards/lists, status badge utilities.
 - Impact: `app/globals.css`, `app/layout.tsx`, `components/layout/*`, `components/ui/{button,card,input}.tsx`, `components/shared/page-header.tsx`, auth/dashboard surfaces, `docs/context/design.md`, `docs/context/project-context.md`

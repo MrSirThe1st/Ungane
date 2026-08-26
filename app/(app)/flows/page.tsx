@@ -7,7 +7,7 @@ import { getCurrentBusiness } from "@/lib/business/current";
 import { isBusinessOwner } from "@/lib/business/roles";
 import { listAppointments, listFlowSettings } from "@/lib/flows/actions";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function FlowsPage() {
   const business = await getCurrentBusiness();

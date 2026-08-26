@@ -9,3 +9,11 @@ This version has breaking changes — APIs, conventions, and file structure may 
 1. Read `project-updates.md`
 2. Read `docs/context/project-context.md` (root `project-context.md` is a stub)
 3. Follow `docs/blueprint/ai/AGENT_RULES.md`
+
+## Verify before finishing
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+```
