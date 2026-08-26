@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { requireCurrentBusiness } from "@/lib/business/current";
+import { requireBusinessOwner } from "@/lib/business/roles";
 import { SafeError, withSafeResult } from "@/lib/errors";
 import { createClient } from "@/lib/supabase/server";
 import { getMessagingService } from "@/lib/whatsapp";
@@ -155,6 +156,7 @@ export async function createTemplateAction(
 ): Promise<ApiResult<MessageTemplateView>> {
   return withSafeResult(
     async () => {
+      await requireBusinessOwner();
       const input = createTemplateFormSchema.parse(raw);
       const business = await requireCurrentBusiness();
       const supabase = await createClient();
@@ -307,6 +309,7 @@ export async function createCampaignAction(
 ): Promise<ApiResult<CampaignView>> {
   const result = await withSafeResult(
     async () => {
+      await requireBusinessOwner();
       const input = createCampaignFormSchema.parse(raw);
       const business = await requireCurrentBusiness();
       const supabase = await createClient();
@@ -372,6 +375,7 @@ export async function sendCampaignAction(
 ): Promise<ApiResult<CampaignView>> {
   return withSafeResult(
     async () => {
+      await requireBusinessOwner();
       const input = sendCampaignSchema.parse(raw);
       const business = await requireCurrentBusiness();
       const supabase = await createClient();

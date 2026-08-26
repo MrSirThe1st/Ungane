@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
+import { requireBusinessOwner } from "@/lib/business/roles";
 import {
   getCurrentBusiness,
   getCurrentMembership,
@@ -38,14 +39,8 @@ export async function updateBusinessAction(
 ): Promise<ApiResult<Business>> {
   return withSafeResult(
     async () => {
+      await requireBusinessOwner();
       const input = updateBusinessFormSchema.parse(raw);
-      const membership = await getCurrentMembership();
-      if (!membership || membership.role !== "business_owner") {
-        throw new SafeError(
-          "Seul le propriétaire peut modifier le profil entreprise.",
-        );
-      }
-
       const business = await requireCurrentBusiness();
       const supabase = await createClient();
       const now = new Date().toISOString();

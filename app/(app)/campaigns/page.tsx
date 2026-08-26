@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { buttonVariants } from "@/components/ui/button";
 import { PageHeader } from "@/components/shared/page-header";
 import { getCurrentBusiness } from "@/lib/business/current";
+import { isBusinessOwner } from "@/lib/business/roles";
 import { listCampaigns, listTemplates } from "@/lib/campaigns/actions";
 import { cn } from "@/lib/utils";
 
@@ -21,9 +22,10 @@ export default async function CampaignsPage() {
   const business = await getCurrentBusiness();
   if (!business) redirect("/onboarding");
 
-  const [campaigns, templates] = await Promise.all([
+  const [campaigns, templates, canManageCampaigns] = await Promise.all([
     listCampaigns(),
     listTemplates(),
+    isBusinessOwner(),
   ]);
 
   return (
@@ -38,9 +40,15 @@ export default async function CampaignsPage() {
             {templates.length} modèle{templates.length > 1 ? "s" : ""} · stub
             Meta plus tard
           </p>
-          <Link href="/campaigns/new" className={cn(buttonVariants())}>
-            Nouvelle campagne
-          </Link>
+          {canManageCampaigns ? (
+            <Link href="/campaigns/new" className={cn(buttonVariants())}>
+              Nouvelle campagne
+            </Link>
+          ) : (
+            <p className="text-muted-foreground text-xs">
+              Réservé au propriétaire
+            </p>
+          )}
         </div>
 
         {campaigns.length === 0 ? (

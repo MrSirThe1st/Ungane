@@ -19,6 +19,12 @@ Use this file as the first project memory source before searching the codebase.
 - Tests: <added, updated, or deferred>
 
 ## 2026-08-26
+- Change type: Infra
+- Description: GitHub Actions CI (lint, typecheck, test, build), Vitest + validation/error tests, owner/staff role enforcement on settings/campaigns/flows/WhatsApp, staff invites by email (RPC + Settings UI).
+- Impact: `.github/workflows/ci.yml`, `vitest.config.ts`, `lib/business/roles.ts`, `lib/staff/*`, `supabase/migrations/20260826100000_staff_invites_and_membership_policies.sql`, guarded server actions, settings/campaigns/flows/dashboard UI
+- Tests: added (Vitest for validations, errors, booking keywords)
+
+## 2026-08-26
 - Change type: Frontend
 - Description: Dashboard metrics (clients, conversations, messages, RDV), quick actions, business profile edit in Settings, conversation search by name/phone.
 - Impact: `lib/dashboard/actions.ts`, `lib/business/actions.ts`, `lib/business/current.ts`, `lib/validations/business.ts`, `/dashboard`, `/settings`, `/conversations`, `components/dashboard/*`, `components/settings/business-profile-form.tsx`

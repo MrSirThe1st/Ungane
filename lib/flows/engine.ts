@@ -1,7 +1,7 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getMessagingService } from "@/lib/whatsapp";
 import { sendOutboundMessage } from "@/lib/whatsapp/inbound";
-import { BOOKING_KEYWORDS } from "@/lib/validations/flows";
+import { matchesBookingKeyword } from "@/lib/validations/flows";
 
 type FlowContext = {
   service?: string;
@@ -43,11 +43,7 @@ async function replyAndPersist(input: {
 }
 
 function looksLikeBookingIntent(text: string): boolean {
-  const normalized = text.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "");
-  return BOOKING_KEYWORDS.some((kw) => {
-    const needle = kw.normalize("NFD").replace(/\p{M}/gu, "");
-    return normalized.includes(needle);
-  });
+  return matchesBookingKeyword(text);
 }
 
 /**

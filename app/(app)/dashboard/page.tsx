@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { appConfig } from "@/config/app";
+import { isBusinessOwner } from "@/lib/business/roles";
 import { getCurrentBusiness } from "@/lib/business/current";
 import {
   getDashboardStats,
@@ -33,9 +34,10 @@ export default async function DashboardPage() {
   const business = await getCurrentBusiness();
   if (!business) redirect("/onboarding");
 
-  const [stats, upcomingAppointments] = await Promise.all([
+  const [stats, upcomingAppointments, canManageCampaigns] = await Promise.all([
     getDashboardStats(),
     listUpcomingAppointments(5),
+    isBusinessOwner(),
   ]);
 
   const statCards = [
@@ -91,7 +93,7 @@ export default async function DashboardPage() {
 
         <section>
           <h2 className="mb-3 text-sm font-medium">Actions rapides</h2>
-          <DashboardQuickActions />
+          <DashboardQuickActions canManageCampaigns={canManageCampaigns} />
         </section>
 
         <section>

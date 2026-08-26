@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { requireCurrentBusiness } from "@/lib/business/current";
+import { requireBusinessOwner } from "@/lib/business/roles";
 import { SafeError, withSafeResult } from "@/lib/errors";
 import {
   sendUpcomingReminders,
@@ -87,6 +88,7 @@ export async function setFlowEnabledAction(
 ): Promise<ApiResult<FlowSettingView>> {
   return withSafeResult(
     async () => {
+      await requireBusinessOwner();
       const input = setFlowEnabledSchema.parse(raw);
       const business = await requireCurrentBusiness();
       const supabase = await createClient();

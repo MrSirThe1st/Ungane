@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { SendCampaignButton } from "@/components/campaigns/send-campaign-button";
 import { PageHeader } from "@/components/shared/page-header";
 import { getCurrentBusiness } from "@/lib/business/current";
+import { isBusinessOwner } from "@/lib/business/roles";
 import {
   getCampaign,
   listCampaignRecipients,
@@ -28,12 +29,16 @@ export default async function CampaignDetailPage({ params }: Props) {
   if (!business) redirect("/onboarding");
 
   const { id } = await params;
-  const campaign = await getCampaign(id);
+  const [campaign, canManageCampaigns] = await Promise.all([
+    getCampaign(id),
+    isBusinessOwner(),
+  ]);
   if (!campaign) notFound();
 
   const recipients = await listCampaignRecipients(id);
   const canSend =
-    campaign.status === "draft" || campaign.status === "scheduled";
+    canManageCampaigns &&
+    (campaign.status === "draft" || campaign.status === "scheduled");
 
   return (
     <>

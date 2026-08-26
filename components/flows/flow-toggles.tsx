@@ -11,9 +11,10 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   settings: FlowSettingView[];
+  canManage: boolean;
 };
 
-export function FlowToggles({ settings }: Props) {
+export function FlowToggles({ settings, canManage }: Props) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [pendingType, setPendingType] = useState<string | null>(null);
@@ -21,6 +22,11 @@ export function FlowToggles({ settings }: Props) {
 
   return (
     <div className="flex max-w-2xl flex-col gap-3">
+      {!canManage ? (
+        <p className="text-muted-foreground text-sm">
+          Seul le propriétaire peut activer ou désactiver les flux.
+        </p>
+      ) : null}
       {settings.map((flow) => (
         <div
           key={flow.flowType}
@@ -32,8 +38,9 @@ export function FlowToggles({ settings }: Props) {
           </div>
           <button
             type="button"
-            disabled={pending && pendingType === flow.flowType}
+            disabled={!canManage || (pending && pendingType === flow.flowType)}
             onClick={() => {
+              if (!canManage) return;
               setError(null);
               setPendingType(flow.flowType);
               startTransition(async () => {
@@ -54,6 +61,7 @@ export function FlowToggles({ settings }: Props) {
               flow.enabled
                 ? "bg-primary text-primary-foreground"
                 : "bg-muted text-muted-foreground",
+              !canManage && "cursor-not-allowed opacity-60",
             )}
           >
             {flow.enabled ? "Activé" : "Désactivé"}
