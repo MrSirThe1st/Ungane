@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { buttonVariants } from "@/components/ui/button";
+import { EmptyState } from "@/components/shared/empty-state";
 import { PageHeader } from "@/components/shared/page-header";
+import {
+  StatusBadge,
+  campaignStatusTone,
+} from "@/components/shared/status-badge";
+import { buttonVariants } from "@/components/ui/button";
 import { getCurrentBusiness } from "@/lib/business/current";
 import { isBusinessOwner } from "@/lib/business/roles";
 import { listCampaigns, listTemplates } from "@/lib/campaigns/actions";
@@ -37,8 +42,8 @@ export default async function CampaignsPage() {
       <div className="flex-1 px-4 py-6 md:px-8">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <p className="text-muted-foreground text-sm">
-            {templates.length} modèle{templates.length > 1 ? "s" : ""} · stub
-            Meta plus tard
+            {templates.length} modèle{templates.length > 1 ? "s" : ""} prêt
+            {templates.length > 1 ? "s" : ""} · envoi local pour le moment
           </p>
           {canManageCampaigns ? (
             <Link href="/campaigns/new" className={cn(buttonVariants())}>
@@ -52,9 +57,12 @@ export default async function CampaignsPage() {
         </div>
 
         {campaigns.length === 0 ? (
-          <p className="text-muted-foreground text-sm">
-            Aucune campagne. Créez-en une avec un modèle et des tags clients.
-          </p>
+          <EmptyState
+            title="Aucune campagne"
+            description="Créez une campagne avec un modèle et des tags clients pour démarrer."
+            actionHref={canManageCampaigns ? "/campaigns/new" : undefined}
+            actionLabel={canManageCampaigns ? "Nouvelle campagne" : undefined}
+          />
         ) : (
           <ul className="divide-border border-border bg-card max-w-3xl divide-y rounded-xl border shadow-sm">
             {campaigns.map((c) => (
@@ -65,9 +73,10 @@ export default async function CampaignsPage() {
                 >
                   <div className="flex items-baseline justify-between gap-3">
                     <p className="font-medium">{c.name}</p>
-                    <span className="text-muted-foreground text-xs">
-                      {statusLabel[c.status] ?? c.status}
-                    </span>
+                    <StatusBadge
+                      label={statusLabel[c.status] ?? c.status}
+                      tone={campaignStatusTone(c.status)}
+                    />
                   </div>
                   <p className="text-muted-foreground mt-1 text-sm">
                     {c.templateDisplayName || c.templateName}

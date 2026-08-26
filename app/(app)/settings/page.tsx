@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { BusinessProfileForm } from "@/components/settings/business-profile-form";
 import { StaffPanel } from "@/components/settings/staff-panel";
 import { WhatsAppConnectForm } from "@/components/settings/whatsapp-connect-form";
+import { EmptyState } from "@/components/shared/empty-state";
 import { PageHeader } from "@/components/shared/page-header";
 import { getEnv } from "@/config/env";
 import { getBusinessProfileForSettings } from "@/lib/business/actions";
@@ -23,11 +24,14 @@ export default async function SettingsPage() {
   ]);
   const staff = isOwner ? await listStaffMembers() : [];
 
+  const providerLabel =
+    provider === "stub" ? "mode test" : "Meta Cloud API";
+
   return (
     <>
       <PageHeader
         title="Paramètres"
-        description={`${business.name} · WhatsApp (${provider})`}
+        description={`${business.name} · WhatsApp (${providerLabel})`}
       />
       <div className="flex-1 space-y-10 px-4 py-6 md:px-8">
         <section>
@@ -42,7 +46,7 @@ export default async function SettingsPage() {
 
         {isOwner ? (
           <section>
-            <h2 className="mb-3 text-base font-medium">Connexion WhatsApp</h2>
+            <h2 className="mb-3 text-base font-semibold">Connexion WhatsApp</h2>
             <WhatsAppConnectForm
               key={account?.phoneNumber ?? "new"}
               account={account}
@@ -50,11 +54,11 @@ export default async function SettingsPage() {
           </section>
         ) : (
           <section>
-            <h2 className="mb-3 text-base font-medium">Connexion WhatsApp</h2>
-            <p className="text-muted-foreground max-w-md text-sm">
-              Seul le propriétaire peut connecter ou modifier le numéro
-              WhatsApp Business.
-            </p>
+            <h2 className="mb-3 text-base font-semibold">Connexion WhatsApp</h2>
+            <EmptyState
+              title="Accès propriétaire requis"
+              description="Seul le propriétaire peut connecter ou modifier le numéro WhatsApp Business."
+            />
           </section>
         )}
       </div>

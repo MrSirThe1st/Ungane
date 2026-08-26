@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 
+import { StatusBadge } from "@/components/shared/status-badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,6 +11,18 @@ import type { WhatsAppAccountView } from "@/lib/whatsapp/actions";
 
 type Props = {
   account: WhatsAppAccountView | null;
+};
+
+const providerLabel: Record<string, string> = {
+  stub: "Mode test",
+  meta: "Meta Cloud API",
+};
+
+const statusLabel: Record<string, string> = {
+  connected: "Connecté",
+  pending: "En attente",
+  disconnected: "Déconnecté",
+  error: "Erreur",
 };
 
 export function WhatsAppConnectForm({ account }: Props) {
@@ -48,15 +61,20 @@ export function WhatsAppConnectForm({ account }: Props) {
           placeholder="+243…"
         />
         <p className="text-muted-foreground text-xs">
-          Mode actuel : stub (Meta Cloud API plus tard). Enregistrez le numéro
-          pour activer l’inbox de test.
+          En mode test, enregistrez un numéro pour activer la boîte de réception
+          locale. La connexion Meta Cloud API arrivera ensuite.
         </p>
       </div>
       {account ? (
-        <p className="text-sm">
-          Statut : <span className="font-medium">{account.status}</span> ·
-          provider <span className="font-medium">{account.provider}</span>
-        </p>
+        <div className="flex flex-wrap items-center gap-2 text-sm">
+          <StatusBadge
+            label={statusLabel[account.status] ?? account.status}
+            tone={account.status === "connected" ? "success" : "muted"}
+          />
+          <span className="text-muted-foreground">
+            {providerLabel[account.provider] ?? account.provider}
+          </span>
+        </div>
       ) : null}
       {error ? (
         <p className="text-destructive text-sm" role="alert">
@@ -64,7 +82,10 @@ export function WhatsAppConnectForm({ account }: Props) {
         </p>
       ) : null}
       {success ? (
-        <p className="text-success-foreground bg-success rounded-md px-3 py-2 text-sm" role="status">
+        <p
+          className="text-success-foreground bg-success rounded-md px-3 py-2 text-sm"
+          role="status"
+        >
           {success}
         </p>
       ) : null}

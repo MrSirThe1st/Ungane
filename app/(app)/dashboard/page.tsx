@@ -17,6 +17,8 @@ import {
   getDashboardStats,
   listUpcomingAppointments,
 } from "@/lib/dashboard/actions";
+import { formatDateTime } from "@/lib/utils";
+import { EmptyState } from "@/components/shared/empty-state";
 
 export const revalidate = 60;
 
@@ -25,7 +27,7 @@ function formatAppointmentWhen(
   scheduledLabel: string | null,
 ): string {
   if (scheduledAt) {
-    return new Date(scheduledAt).toLocaleString("fr-CD");
+    return formatDateTime(scheduledAt);
   }
   return scheduledLabel ?? "Date à préciser";
 }
@@ -120,13 +122,12 @@ export default async function DashboardPage() {
             </Link>
           </div>
           {upcomingAppointments.length === 0 ? (
-            <p className="text-muted-foreground text-sm">
-              Aucun rendez-vous à venir. Activez la réservation dans{" "}
-              <Link href={appConfig.routes.flows} className="underline">
-                Flux
-              </Link>
-              .
-            </p>
+            <EmptyState
+              title="Aucun rendez-vous à venir"
+              description="Activez la réservation dans Flux pour collecter des RDV via WhatsApp."
+              actionHref={appConfig.routes.flows}
+              actionLabel="Configurer les flux"
+            />
           ) : (
             <ul className="divide-border border-border bg-card max-w-2xl divide-y rounded-xl border shadow-sm">
               {upcomingAppointments.map((appointment) => (

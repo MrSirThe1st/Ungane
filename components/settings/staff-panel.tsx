@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { formatDate } from "@/lib/utils";
 import { inviteStaffAction, type StaffMemberView } from "@/lib/staff/actions";
 
 type Props = {
@@ -65,7 +66,7 @@ export function StaffPanel({ staff }: Props) {
                 <p className="font-medium">{member.email}</p>
                 <p className="text-muted-foreground mt-1 text-xs">
                   {member.status === "active" ? "Actif" : member.status} ·{" "}
-                  {new Date(member.createdAt).toLocaleDateString("fr-CD")}
+                  {formatDate(member.createdAt)}
                 </p>
               </li>
             ))}

@@ -19,6 +19,12 @@ Use this file as the first project memory source before searching the codebase.
 - Tests: <added, updated, or deferred>
 
 ## 2026-08-26
+- Change type: Frontend
+- Description: Brand polish with green tokens — EmptyState + StatusBadge, mobile sign-out, fr-CD format helpers, BrandProvider wiring useAppName to active business.
+- Impact: `components/shared/{empty-state,status-badge}.tsx`, `components/providers/brand-provider.tsx`, `hooks/use-app-name.ts`, `lib/utils/format.ts`, sidebar/shell/layout, customers/conversations/campaigns/dashboard/settings surfaces
+- Tests: added (`lib/utils/format.test.ts`)
+
+## 2026-08-26
 - Change type: Infra
 - Description: CI limited to lint+typecheck; expanded Vitest coverage; ADR-002 caching on customers/campaigns/flows; short README + archived vision; demo seed script; `.env.example`; Cloud Agent `.cursor/environment.json`.
 - Impact: `.github/workflows/ci.yml`, `lib/validations/*.test.ts`, `app/(app)/{customers,campaigns,flows}/**`, `README.md`, `docs/archive/product-vision.md`, `scripts/seed-demo.mjs`, `.env.example`, `.cursor/environment.json`

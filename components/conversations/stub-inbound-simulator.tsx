@@ -42,10 +42,13 @@ export function StubInboundSimulator({ businessId }: Props) {
       action={onSubmit}
       className="border-border bg-card mt-6 flex max-w-md flex-col gap-3 rounded-xl border p-4 shadow-sm"
     >
-      <p className="text-sm font-medium">Simuler un message entrant (stub)</p>
+      <p className="text-sm font-semibold">Simuler un message entrant</p>
+      <p className="text-muted-foreground -mt-1 text-xs">
+        Mode test local — crée un client et une conversation.
+      </p>
       <Input
         name="contactName"
-        placeholder="Nom client (ex. Marie)"
+        placeholder="Nom du client (ex. Marie)"
         defaultValue="Marie"
       />
       <Input
@@ -66,7 +69,7 @@ export function StubInboundSimulator({ businessId }: Props) {
         </p>
       ) : null}
       <Button type="submit" variant="secondary" disabled={pending}>
-        {pending ? "Envoi…" : "Simuler “Bonjour”"}
+        {pending ? "Envoi…" : "Envoyer le message test"}
       </Button>
     </form>
   );

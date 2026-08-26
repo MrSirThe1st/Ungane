@@ -2,12 +2,18 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { StubInboundSimulator } from "@/components/conversations/stub-inbound-simulator";
+import { EmptyState } from "@/components/shared/empty-state";
 import { PageHeader } from "@/components/shared/page-header";
+import {
+  StatusBadge,
+  conversationStatusTone,
+} from "@/components/shared/status-badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getEnv } from "@/config/env";
 import { getCurrentBusiness } from "@/lib/business/current";
 import { customerDisplayName } from "@/lib/customers/display";
+import { formatDateTime } from "@/lib/utils";
 import {
   getWhatsAppAccount,
   listConversations,
@@ -40,13 +46,12 @@ export default async function ConversationsPage({ searchParams }: Props) {
       />
       <div className="flex-1 px-4 py-6 md:px-8">
         {!account ? (
-          <p className="text-muted-foreground text-sm">
-            Connectez d’abord WhatsApp dans{" "}
-            <Link href="/settings" className="underline underline-offset-4">
-              Paramètres
-            </Link>
-            .
-          </p>
+          <EmptyState
+            title="WhatsApp non connecté"
+            description="Connectez votre numéro WhatsApp Business pour recevoir et répondre aux messages."
+            actionHref="/settings"
+            actionLabel="Ouvrir les paramètres"
+          />
         ) : (
           <form className="mb-4 flex flex-wrap gap-2" method="get">
             <Input
@@ -61,13 +66,25 @@ export default async function ConversationsPage({ searchParams }: Props) {
           </form>
         )}
 
-        {conversations.length === 0 ? (
-          <p className="text-muted-foreground mt-4 text-sm">
-            {query
-              ? "Aucune conversation ne correspond à votre recherche."
-              : "Aucune conversation pour le moment."}
-          </p>
-        ) : (
+        {account && conversations.length === 0 ? (
+          <EmptyState
+            className="mt-2"
+            title={
+              query
+                ? "Aucune conversation trouvée"
+                : "Boîte de réception vide"
+            }
+            description={
+              query
+                ? "Aucun client ne correspond à votre recherche."
+                : isStub
+                  ? "Simulez un message entrant ci-dessous pour démarrer une conversation de test."
+                  : "Les nouveaux messages WhatsApp apparaîtront ici."
+            }
+          />
+        ) : null}
+
+        {conversations.length > 0 ? (
           <ul className="divide-border border-border bg-card mt-2 max-w-2xl divide-y rounded-xl border shadow-sm">
             {conversations.map((c) => (
               <li key={c.id}>
@@ -81,18 +98,24 @@ export default async function ConversationsPage({ searchParams }: Props) {
                     </p>
                     {c.lastMessageAt ? (
                       <time className="text-muted-foreground text-xs">
-                        {new Date(c.lastMessageAt).toLocaleString("fr-CD")}
+                        {formatDateTime(c.lastMessageAt)}
                       </time>
                     ) : null}
                   </div>
-                  <p className="text-muted-foreground mt-1 truncate text-sm">
-                    {c.lastMessagePreview ?? "—"}
-                  </p>
+                  <div className="mt-1 flex items-center gap-2">
+                    <StatusBadge
+                      label={c.status === "open" ? "Ouverte" : "Fermée"}
+                      tone={conversationStatusTone(c.status)}
+                    />
+                    <p className="text-muted-foreground truncate text-sm">
+                      {c.lastMessagePreview ?? "—"}
+                    </p>
+                  </div>
                 </Link>
               </li>
             ))}
           </ul>
-        )}
+        ) : null}
 
         {isStub && account ? (
           <StubInboundSimulator businessId={business.id} />
