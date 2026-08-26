@@ -59,7 +59,7 @@ export function StaffPanel({ staff }: Props) {
             Aucun collaborateur pour le moment.
           </p>
         ) : (
-          <ul className="divide-border border-border divide-y rounded-lg border">
+          <ul className="divide-border border-border bg-card divide-y rounded-xl border shadow-sm">
             {staff.map((member) => (
               <li key={member.id} className="px-4 py-3 text-sm">
                 <p className="font-medium">{member.email}</p>
@@ -89,7 +89,7 @@ export function StaffPanel({ staff }: Props) {
             </p>
           ) : null}
           {success ? (
-            <p className="text-sm text-emerald-700" role="status">
+            <p className="text-success-foreground bg-success rounded-md px-3 py-2 text-sm" role="status">
               {success}
             </p>
           ) : null}

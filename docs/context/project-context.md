@@ -67,8 +67,8 @@ A WhatsApp-first CRM and automation platform. WhatsApp is the channel; UNGANE is
 
 ## Design Direction
 
-Warm, human, relationship-focused — not cold corporate SaaS.  
-Palette: peach cream `#FEDCCB`, burgundy `#44242A`, terracotta `#B84646`, coral `#F47F80`, charcoal `#1F1315`.
+Warm, trustworthy WhatsApp CRM SaaS — light canvas with forest-green accents.  
+Palette: forest green `#2F7532`, mint `#DBF9E1`, lime `#76D789`, canvas `#F8F9FA`, ink `#1A1A1A`.
 
 → [design.md](./design.md)
 

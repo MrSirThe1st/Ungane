@@ -68,7 +68,7 @@ export default async function ConversationsPage({ searchParams }: Props) {
               : "Aucune conversation pour le moment."}
           </p>
         ) : (
-          <ul className="divide-border border-border mt-2 max-w-2xl divide-y rounded-lg border">
+          <ul className="divide-border border-border bg-card mt-2 max-w-2xl divide-y rounded-xl border shadow-sm">
             {conversations.map((c) => (
               <li key={c.id}>
                 <Link

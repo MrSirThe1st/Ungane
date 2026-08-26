@@ -40,7 +40,7 @@ export function StubInboundSimulator({ businessId }: Props) {
   return (
     <form
       action={onSubmit}
-      className="border-border bg-card mt-6 flex max-w-md flex-col gap-3 rounded-lg border p-4"
+      className="border-border bg-card mt-6 flex max-w-md flex-col gap-3 rounded-xl border p-4 shadow-sm"
     >
       <p className="text-sm font-medium">Simuler un message entrant (stub)</p>
       <Input

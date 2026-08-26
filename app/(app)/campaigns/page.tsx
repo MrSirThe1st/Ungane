@@ -56,7 +56,7 @@ export default async function CampaignsPage() {
             Aucune campagne. Créez-en une avec un modèle et des tags clients.
           </p>
         ) : (
-          <ul className="divide-border border-border max-w-3xl divide-y rounded-lg border">
+          <ul className="divide-border border-border bg-card max-w-3xl divide-y rounded-xl border shadow-sm">
             {campaigns.map((c) => (
               <li key={c.id}>
                 <Link

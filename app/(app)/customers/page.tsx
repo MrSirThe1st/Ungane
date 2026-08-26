@@ -95,7 +95,7 @@ export default async function CustomersPage({ searchParams }: Props) {
             Aucun client. Ajoutez-en un ou simulez un message WhatsApp.
           </p>
         ) : (
-          <ul className="divide-border border-border max-w-3xl divide-y rounded-lg border">
+          <ul className="divide-border border-border bg-card max-w-3xl divide-y rounded-xl border shadow-sm">
             {customers.map((c) => (
               <li key={c.id}>
                 <Link
@@ -118,7 +118,7 @@ export default async function CustomersPage({ searchParams }: Props) {
                       {c.tags.map((t) => (
                         <span
                           key={t}
-                          className="bg-muted rounded px-1.5 py-0.5 text-[10px]"
+                          className="badge-muted"
                         >
                           {t}
                         </span>

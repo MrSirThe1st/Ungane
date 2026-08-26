@@ -136,7 +136,7 @@ export function BusinessProfileForm({ business, canEdit }: Props) {
             </p>
           ) : null}
           {success ? (
-            <p className="text-sm text-emerald-700" role="status">
+            <p className="text-success-foreground bg-success rounded-md px-3 py-2 text-sm" role="status">
               {success}
             </p>
           ) : null}

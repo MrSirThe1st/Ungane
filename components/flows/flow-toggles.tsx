@@ -30,7 +30,7 @@ export function FlowToggles({ settings, canManage }: Props) {
       {settings.map((flow) => (
         <div
           key={flow.flowType}
-          className="border-border flex flex-col gap-2 rounded-lg border px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+          className="border-border bg-card flex flex-col gap-2 rounded-xl border px-4 py-3 shadow-sm sm:flex-row sm:items-center sm:justify-between"
         >
           <div>
             <p className="font-medium">{flow.title}</p>

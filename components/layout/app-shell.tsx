@@ -7,9 +7,9 @@ type AppShellProps = {
 /** Persistent authenticated-app chrome. Used from `app/(app)/layout.tsx`. */
 export function AppShell({ children }: AppShellProps) {
   return (
-    <div className="flex min-h-full flex-1 flex-col md:flex-row">
+    <div className="bg-background flex min-h-full flex-1 flex-col md:flex-row">
       <AppSidebar />
-      <main className="flex flex-1 flex-col">{children}</main>
+      <main className="flex flex-1 flex-col md:min-w-0">{children}</main>
     </div>
   );
 }

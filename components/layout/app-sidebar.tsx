@@ -23,11 +23,11 @@ export function AppSidebar() {
   const [pending, startTransition] = useTransition();
 
   return (
-    <aside className="border-border bg-sidebar text-sidebar-foreground flex w-full flex-col border-b md:w-56 md:border-r md:border-b-0">
+    <aside className="border-sidebar-border bg-sidebar text-sidebar-foreground flex w-full flex-col border-b shadow-sm md:w-60 md:border-r md:border-b-0 md:shadow-none">
       <div className="px-4 py-5">
         <Link
           href="/dashboard"
-          className="text-lg font-semibold tracking-tight"
+          className="text-brand text-lg font-bold tracking-tight"
         >
           {appConfig.name}
         </Link>
@@ -35,18 +35,19 @@ export function AppSidebar() {
           Relations clients WhatsApp
         </p>
       </div>
-      <nav className="flex gap-1 overflow-x-auto px-2 pb-3 md:flex-1 md:flex-col md:pb-6">
+      <nav className="flex gap-1 overflow-x-auto px-2 pb-3 md:flex-1 md:flex-col md:gap-1 md:pb-6">
         {navItems.map((item) => {
-          const active = pathname === item.href;
+          const active =
+            pathname === item.href || pathname.startsWith(`${item.href}/`);
           return (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "rounded-md px-3 py-2 text-sm whitespace-nowrap transition-colors",
+                "rounded-lg px-3 py-2 text-sm whitespace-nowrap transition-colors",
                 active
-                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                  : "hover:bg-sidebar-accent/70",
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-semibold shadow-sm"
+                  : "text-sidebar-foreground hover:bg-muted",
               )}
             >
               {item.label}
@@ -54,11 +55,11 @@ export function AppSidebar() {
           );
         })}
       </nav>
-      <div className="border-border mt-auto hidden border-t p-3 md:block">
+      <div className="border-sidebar-border mt-auto hidden border-t p-3 md:block">
         <Button
           type="button"
           variant="ghost"
-          className="text-sidebar-foreground w-full justify-start"
+          className="text-muted-foreground hover:text-foreground w-full justify-start"
           disabled={pending}
           onClick={() => {
             startTransition(async () => {

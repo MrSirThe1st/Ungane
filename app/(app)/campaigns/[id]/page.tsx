@@ -92,7 +92,7 @@ export default async function CampaignDetailPage({ params }: Props) {
         {recipients.length > 0 ? (
           <>
             <h2 className="mb-3 text-base font-medium">Destinataires</h2>
-            <ul className="divide-border border-border max-w-2xl divide-y rounded-lg border">
+            <ul className="divide-border border-border bg-card max-w-2xl divide-y rounded-xl border shadow-sm">
               {recipients.map((r) => (
                 <li key={r.id} className="px-4 py-3 text-sm">
                   <div className="flex items-baseline justify-between gap-3">

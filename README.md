@@ -30,46 +30,41 @@ Later integrate:
 
 
 UNGANE COLOURS AND TYPOGRAPHY
-Font humanist sans-serif.
-￼
+Font: Plus Jakarta Sans (humanist geometric sans).
+
 Color Palette Breakdown
-* Deep Burgundy
-    * HEX: #44242A
-    * RGB: rgb(68, 36, 42)
-    * Role: Dark background, high-contrast containers, or primary text in light mode.
-* Terracotta / Crimson Red
-    * HEX: #B84646
-    * RGB: rgb(184, 70, 70)
-    * Role: Secondary accents, active states, key data metrics, or medium-tier hierarchy elements.
-* Coral Pink
-    * HEX: #F47F80
-    * RGB: rgb(244, 127, 128)
-    * Role: Primary call-to-action (CTA) buttons, interactive highlights, or key focal points.
-* Soft Peach Cream
-    * HEX: #FEDCCB
-    * RGB: rgb(254, 220, 203)
-    * Role: Surface backgrounds, card fills, light mode canvas, or soft text contrast on dark backgrounds.
-* Espresso Charcoal (Grid & Borders)
-    * HEX: #1F1315
-    * RGB: rgb(31, 19, 21)
-    * Role: Structural borders, high-contrast grid lines, or deep shadow accent
+* Forest Green (primary)
+    * HEX: #2F7532
+    * Role: Primary CTAs, active navigation, brand wordmark.
+* Soft Mint
+    * HEX: #DBF9E1
+    * Role: Welcome banners, soft accents, success surfaces.
+* Lime Accent
+    * HEX: #76D789
+    * Role: Positive highlights and chart accents.
+* Canvas / Off-white
+    * HEX: #F8F9FA
+    * Role: Page background.
+* Ink
+    * HEX: #1A1A1A
+    * Role: Headings and primary text.
 
 
 60%
-Soft Peach Cream
-(backgrounds)
+Canvas / white
+(backgrounds & cards)
 
 25%
-Deep Burgundy
-(navigation, branding, text)
+Ink + muted slate
+(text)
 
 10%
-Terracotta
-(status, secondary actions)
+Forest green
+(primary actions, active states)
 
 5%
-Coral Pink
-(main CTA)
+Mint / lime
+(banners, accents)
 
 
 
