@@ -2,21 +2,43 @@
 
 ## Direction
 
-Warm, human, relationship-focused. Not cold corporate SaaS. Product should feel approachable for non-technical Congo business owners on mobile.
+Clean, modern WhatsApp CRM SaaS — trustworthy and approachable for Congo business owners on mobile. High whitespace, rounded surfaces, forest-green brand accents on a light canvas.
 
 ## Brand Colors
 
 | Name | HEX | Role |
 |---|---|---|
-| Soft Peach Cream | `#FEDCCB` | Backgrounds / surfaces (~60%) |
-| Deep Burgundy | `#44242A` | Navigation, branding, text (~25%) |
-| Terracotta / Crimson | `#B84646` | Status, secondary actions (~10%) |
-| Coral Pink | `#F47F80` | Primary CTAs (~5%) |
-| Espresso Charcoal | `#1F1315` | Borders, grid, deep contrast |
+| Forest Green | `#2F7532` | Primary CTAs, active nav, brand wordmark (~primary) |
+| Green Dark | `#245A27` | Hover / pressed primary |
+| Soft Mint | `#DBF9E1` | Welcome banners, soft accents, success surfaces |
+| Lime Accent | `#76D789` | Positive highlights, chart accents |
+| Canvas | `#F8F9FA` | Page background |
+| White | `#FFFFFF` | Cards, sidebar, inputs |
+| Ink | `#1A1A1A` | Headings / primary text |
+| Slate muted | `#5B6470` | Secondary text |
+| Border | `#E5E7EB` | Dividers, input borders |
+
+### Status badges
+
+| Status | Background | Text |
+|---|---|---|
+| Success / Active | `#DBF9E1` | `#1B5E20` |
+| Warning / Soon | `#FEF3C7` | `#B45309` |
+| Info | `#DBEAFE` | `#1D4ED8` |
+| Neutral | muted surface | muted foreground |
 
 ## Typography
 
-Humanist sans-serif. Expressive and readable. Avoid default Inter/Roboto/Arial stacks for branded surfaces.
+**Plus Jakarta Sans** (via `next/font`) for UI and headings. Clean geometric humanist sans — readable on low-end phones. Avoid Inter / Roboto / system-default stacks for branded surfaces.
+
+## Component language
+
+- **Buttons:** solid forest green + white label; outline green for secondary actions
+- **Cards:** white, `rounded-xl`, light border, soft shadow
+- **Sidebar:** white surface; active item = solid green pill with white text
+- **Inputs:** white fill, light gray border, `rounded-lg`, focus ring in primary green
+- **Badges:** pill-shaped (`rounded-full`) with tinted backgrounds
+- **Radius:** base `0.75rem` (~12px)
 
 ## UX Principles
 

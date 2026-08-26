@@ -20,7 +20,7 @@ export default async function SignupPage() {
   return (
     <div className="bg-background flex min-h-full flex-1 flex-col items-center justify-center px-4 py-10">
       <div className="mb-8 text-center">
-        <p className="text-2xl font-semibold tracking-tight">
+        <p className="text-brand text-2xl font-bold tracking-tight">
           {appConfig.name}
         </p>
         <p className="text-muted-foreground mt-1 text-sm">

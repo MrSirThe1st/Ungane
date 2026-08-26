@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { CampaignForm } from "@/components/campaigns/campaign-form";
 import { PageHeader } from "@/components/shared/page-header";
 import { getCurrentBusiness } from "@/lib/business/current";
+import { isBusinessOwner } from "@/lib/business/roles";
 import { listTemplates } from "@/lib/campaigns/actions";
 import { listCustomerTags } from "@/lib/customers/actions";
 
@@ -12,6 +13,9 @@ export const dynamic = "force-dynamic";
 export default async function NewCampaignPage() {
   const business = await getCurrentBusiness();
   if (!business) redirect("/onboarding");
+
+  const canManageCampaigns = await isBusinessOwner();
+  if (!canManageCampaigns) redirect("/campaigns");
 
   const [templates, knownTags] = await Promise.all([
     listTemplates(),

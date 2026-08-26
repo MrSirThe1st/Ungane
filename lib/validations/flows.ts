@@ -26,3 +26,11 @@ export const BOOKING_KEYWORDS = [
   "book",
   "prendre rendez",
 ] as const;
+
+export function matchesBookingKeyword(text: string): boolean {
+  const normalized = text.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "");
+  return BOOKING_KEYWORDS.some((keyword) => {
+    const needle = keyword.normalize("NFD").replace(/\p{M}/gu, "");
+    return normalized.includes(needle);
+  });
+}

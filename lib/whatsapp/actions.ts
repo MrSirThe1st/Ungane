@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { requireCurrentBusiness } from "@/lib/business/current";
+import { requireBusinessOwner } from "@/lib/business/roles";
 import { SafeError, withSafeResult } from "@/lib/errors";
 import { createClient } from "@/lib/supabase/server";
 import { getEnv } from "@/config/env";
@@ -47,6 +48,7 @@ export async function connectWhatsAppAction(
 ): Promise<ApiResult<WhatsAppAccountView>> {
   return withSafeResult(
     async () => {
+      await requireBusinessOwner();
       const input = connectWhatsAppSchema.parse(raw);
       const business = await requireCurrentBusiness();
       const supabase = await createClient();

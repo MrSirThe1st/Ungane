@@ -74,7 +74,7 @@ export function AppointmentsPanel({
           Conversations.
         </p>
       ) : (
-        <ul className="divide-border border-border divide-y rounded-lg border">
+        <ul className="divide-border border-border bg-card divide-y rounded-xl border shadow-sm">
           {appointments.map((a) => (
             <li
               key={a.id}

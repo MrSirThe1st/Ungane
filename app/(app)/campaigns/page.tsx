@@ -1,13 +1,19 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { buttonVariants } from "@/components/ui/button";
+import { EmptyState } from "@/components/shared/empty-state";
 import { PageHeader } from "@/components/shared/page-header";
+import {
+  StatusBadge,
+  campaignStatusTone,
+} from "@/components/shared/status-badge";
+import { buttonVariants } from "@/components/ui/button";
 import { getCurrentBusiness } from "@/lib/business/current";
+import { isBusinessOwner } from "@/lib/business/roles";
 import { listCampaigns, listTemplates } from "@/lib/campaigns/actions";
 import { cn } from "@/lib/utils";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 const statusLabel: Record<string, string> = {
   draft: "Brouillon",
@@ -21,9 +27,10 @@ export default async function CampaignsPage() {
   const business = await getCurrentBusiness();
   if (!business) redirect("/onboarding");
 
-  const [campaigns, templates] = await Promise.all([
+  const [campaigns, templates, canManageCampaigns] = await Promise.all([
     listCampaigns(),
     listTemplates(),
+    isBusinessOwner(),
   ]);
 
   return (
@@ -35,20 +42,29 @@ export default async function CampaignsPage() {
       <div className="flex-1 px-4 py-6 md:px-8">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <p className="text-muted-foreground text-sm">
-            {templates.length} modèle{templates.length > 1 ? "s" : ""} · stub
-            Meta plus tard
+            {templates.length} modèle{templates.length > 1 ? "s" : ""} prêt
+            {templates.length > 1 ? "s" : ""} · envoi local pour le moment
           </p>
-          <Link href="/campaigns/new" className={cn(buttonVariants())}>
-            Nouvelle campagne
-          </Link>
+          {canManageCampaigns ? (
+            <Link href="/campaigns/new" className={cn(buttonVariants())}>
+              Nouvelle campagne
+            </Link>
+          ) : (
+            <p className="text-muted-foreground text-xs">
+              Réservé au propriétaire
+            </p>
+          )}
         </div>
 
         {campaigns.length === 0 ? (
-          <p className="text-muted-foreground text-sm">
-            Aucune campagne. Créez-en une avec un modèle et des tags clients.
-          </p>
+          <EmptyState
+            title="Aucune campagne"
+            description="Créez une campagne avec un modèle et des tags clients pour démarrer."
+            actionHref={canManageCampaigns ? "/campaigns/new" : undefined}
+            actionLabel={canManageCampaigns ? "Nouvelle campagne" : undefined}
+          />
         ) : (
-          <ul className="divide-border border-border max-w-3xl divide-y rounded-lg border">
+          <ul className="divide-border border-border bg-card max-w-3xl divide-y rounded-xl border shadow-sm">
             {campaigns.map((c) => (
               <li key={c.id}>
                 <Link
@@ -57,9 +73,10 @@ export default async function CampaignsPage() {
                 >
                   <div className="flex items-baseline justify-between gap-3">
                     <p className="font-medium">{c.name}</p>
-                    <span className="text-muted-foreground text-xs">
-                      {statusLabel[c.status] ?? c.status}
-                    </span>
+                    <StatusBadge
+                      label={statusLabel[c.status] ?? c.status}
+                      tone={campaignStatusTone(c.status)}
+                    />
                   </div>
                   <p className="text-muted-foreground mt-1 text-sm">
                     {c.templateDisplayName || c.templateName}

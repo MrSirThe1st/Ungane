@@ -53,7 +53,7 @@ Mental model: **Server = truth · Cache = speed · Client = interaction**
 
 | Page | Strategy |
 |---|---|
-| Dashboard / Customers / Campaigns / Settings | `export const revalidate = 60` (customers may go to 300 later) |
+| Dashboard / Customers / Campaigns / Settings / Flows | `export const revalidate = 60` (customers may go to 300 later) |
 | Conversations | `export const dynamic = "force-dynamic"` |
 
 - Do not force-dynamic semi-static pages

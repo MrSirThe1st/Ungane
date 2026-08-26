@@ -4,8 +4,8 @@ import { notFound, redirect } from "next/navigation";
 import { ReplyForm } from "@/components/conversations/reply-form";
 import { PageHeader } from "@/components/shared/page-header";
 import { getCurrentBusiness } from "@/lib/business/current";
+import { cn, formatTime } from "@/lib/utils";
 import { getConversationThread } from "@/lib/whatsapp/actions";
-import { cn } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -42,37 +42,40 @@ export default async function ConversationDetailPage({ params }: Props) {
           </Link>
           <Link
             href={`/customers/${conversation.customer.id}`}
-            className="text-muted-foreground text-sm underline-offset-4 hover:underline"
+            className="text-brand text-sm font-medium underline-offset-4 hover:underline"
           >
-            Fiche client
+            Voir la fiche client
           </Link>
         </div>
 
-        <div className="flex max-w-2xl flex-1 flex-col gap-3">
-          {messages.map((m) => (
-            <div
-              key={m.id}
-              className={cn(
-                "max-w-[85%] rounded-lg px-3 py-2 text-sm",
-                m.direction === "INBOUND"
-                  ? "bg-muted self-start"
-                  : "bg-primary text-primary-foreground self-end",
-              )}
-            >
-              <p className="whitespace-pre-wrap">{m.content}</p>
-              <p
+        <div className="border-border bg-card flex max-w-2xl flex-1 flex-col gap-3 rounded-2xl border p-4 shadow-sm">
+          {messages.length === 0 ? (
+            <p className="text-muted-foreground text-sm">
+              Aucun message dans cette conversation.
+            </p>
+          ) : (
+            messages.map((m) => (
+              <div
+                key={m.id}
                 className={cn(
-                  "mt-1 text-[10px] opacity-70",
-                  m.direction === "OUTBOUND" && "text-right",
+                  "max-w-[85%] rounded-2xl px-3 py-2 text-sm",
+                  m.direction === "INBOUND"
+                    ? "bg-brand-mint text-foreground self-start"
+                    : "bg-primary text-primary-foreground self-end",
                 )}
               >
-                {new Date(m.createdAt).toLocaleTimeString("fr-CD", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </p>
-            </div>
-          ))}
+                <p className="whitespace-pre-wrap">{m.content}</p>
+                <p
+                  className={cn(
+                    "mt-1 text-[10px] opacity-70",
+                    m.direction === "OUTBOUND" && "text-right",
+                  )}
+                >
+                  {formatTime(m.createdAt)}
+                </p>
+              </div>
+            ))
+          )}
         </div>
 
         <div className="mt-auto max-w-2xl pt-4">

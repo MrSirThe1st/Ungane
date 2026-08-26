@@ -20,6 +20,30 @@ Use this file as the first project memory source before searching the codebase.
 
 ## 2026-08-26
 - Change type: Frontend
+- Description: Brand polish with green tokens — EmptyState + StatusBadge, mobile sign-out, fr-CD format helpers, BrandProvider wiring useAppName to active business.
+- Impact: `components/shared/{empty-state,status-badge}.tsx`, `components/providers/brand-provider.tsx`, `hooks/use-app-name.ts`, `lib/utils/format.ts`, sidebar/shell/layout, customers/conversations/campaigns/dashboard/settings surfaces
+- Tests: added (`lib/utils/format.test.ts`)
+
+## 2026-08-26
+- Change type: Infra
+- Description: CI limited to lint+typecheck; expanded Vitest coverage; ADR-002 caching on customers/campaigns/flows; short README + archived vision; demo seed script; `.env.example`; Cloud Agent `.cursor/environment.json`.
+- Impact: `.github/workflows/ci.yml`, `lib/validations/*.test.ts`, `app/(app)/{customers,campaigns,flows}/**`, `README.md`, `docs/archive/product-vision.md`, `scripts/seed-demo.mjs`, `.env.example`, `.cursor/environment.json`
+- Tests: added (auth, campaign, whatsapp schemas)
+
+## 2026-08-26
+- Change type: Frontend
+- Description: Rebranded UI to green SaaS theme (forest green primary, mint accents, light canvas) aligned with Waptoz-style references. Plus Jakarta Sans, light sidebar with green active state, softer cards/lists, status badge utilities.
+- Impact: `app/globals.css`, `app/layout.tsx`, `components/layout/*`, `components/ui/{button,card,input}.tsx`, `components/shared/page-header.tsx`, auth/dashboard surfaces, `docs/context/design.md`, `docs/context/project-context.md`
+- Tests: deferred (visual — lint/typecheck/build)
+
+## 2026-08-26
+- Change type: Infra
+- Description: GitHub Actions CI (lint, typecheck, test, build), Vitest + validation/error tests, owner/staff role enforcement on settings/campaigns/flows/WhatsApp, staff invites by email (RPC + Settings UI).
+- Impact: `.github/workflows/ci.yml`, `vitest.config.ts`, `lib/business/roles.ts`, `lib/staff/*`, `supabase/migrations/20260826100000_staff_invites_and_membership_policies.sql`, guarded server actions, settings/campaigns/flows/dashboard UI
+- Tests: added (Vitest for validations, errors, booking keywords)
+
+## 2026-08-26
+- Change type: Frontend
 - Description: Dashboard metrics (clients, conversations, messages, RDV), quick actions, business profile edit in Settings, conversation search by name/phone.
 - Impact: `lib/dashboard/actions.ts`, `lib/business/actions.ts`, `lib/business/current.ts`, `lib/validations/business.ts`, `/dashboard`, `/settings`, `/conversations`, `components/dashboard/*`, `components/settings/business-profile-form.tsx`
 - Tests: deferred (manual: dashboard counts, edit business profile as owner, search conversations)

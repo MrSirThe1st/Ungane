@@ -11,7 +11,7 @@ import {
   listCustomerTags,
 } from "@/lib/customers/actions";
 import { customerDisplayName } from "@/lib/customers/display";
-import { cn } from "@/lib/utils";
+import { cn, formatDateTime } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -62,8 +62,7 @@ export default async function CustomerDetailPage({ params }: Props) {
           {customer.email ? <p>Email : {customer.email}</p> : null}
           {customer.lastInteractionAt ? (
             <p>
-              Dernière interaction :{" "}
-              {new Date(customer.lastInteractionAt).toLocaleString("fr-CD")}
+              Dernière interaction : {formatDateTime(customer.lastInteractionAt)}
             </p>
           ) : (
             <p>Aucune interaction WhatsApp encore.</p>

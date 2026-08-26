@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { EmptyState } from "@/components/shared/empty-state";
+import { PageHeader } from "@/components/shared/page-header";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { PageHeader } from "@/components/shared/page-header";
 import { getCurrentBusiness } from "@/lib/business/current";
 import {
   listCustomerTags,
@@ -11,9 +12,9 @@ import {
 } from "@/lib/customers/actions";
 import { customerDisplayName } from "@/lib/customers/display";
 import { SUGGESTED_CUSTOMER_TAGS } from "@/lib/validations/customer";
-import { cn } from "@/lib/utils";
+import { cn, formatDateTime } from "@/lib/utils";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 type Props = {
   searchParams: Promise<{ q?: string; tag?: string }>;
@@ -57,16 +58,20 @@ export default async function CustomersPage({ searchParams }: Props) {
             </Button>
           </form>
           <Link href="/customers/new" className={cn(buttonVariants())}>
-            Ajouter
+            Ajouter un client
           </Link>
         </div>
 
         <div className="mb-4 flex flex-wrap gap-2">
           <Link
-            href={query ? `/customers?q=${encodeURIComponent(query)}` : "/customers"}
+            href={
+              query ? `/customers?q=${encodeURIComponent(query)}` : "/customers"
+            }
             className={cn(
-              "rounded-md px-2 py-1 text-xs",
-              !tag ? "bg-primary text-primary-foreground" : "bg-muted",
+              "rounded-full px-3 py-1 text-xs font-medium",
+              !tag
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-muted-foreground",
             )}
           >
             Tous
@@ -80,8 +85,10 @@ export default async function CustomersPage({ searchParams }: Props) {
                 key={t}
                 href={href}
                 className={cn(
-                  "rounded-md px-2 py-1 text-xs",
-                  tag === t ? "bg-primary text-primary-foreground" : "bg-muted",
+                  "rounded-full px-3 py-1 text-xs font-medium",
+                  tag === t
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground",
                 )}
               >
                 {t}
@@ -91,11 +98,18 @@ export default async function CustomersPage({ searchParams }: Props) {
         </div>
 
         {customers.length === 0 ? (
-          <p className="text-muted-foreground text-sm">
-            Aucun client. Ajoutez-en un ou simulez un message WhatsApp.
-          </p>
+          <EmptyState
+            title={query || tag ? "Aucun résultat" : "Aucun client pour l’instant"}
+            description={
+              query || tag
+                ? "Essayez un autre nom, téléphone ou tag."
+                : "Ajoutez un client manuellement ou attendez le premier message WhatsApp."
+            }
+            actionHref="/customers/new"
+            actionLabel="Ajouter un client"
+          />
         ) : (
-          <ul className="divide-border border-border max-w-3xl divide-y rounded-lg border">
+          <ul className="divide-border border-border bg-card max-w-3xl divide-y rounded-xl border shadow-sm">
             {customers.map((c) => (
               <li key={c.id}>
                 <Link
@@ -106,7 +120,7 @@ export default async function CustomersPage({ searchParams }: Props) {
                     <p className="font-medium">{customerDisplayName(c)}</p>
                     {c.lastInteractionAt ? (
                       <time className="text-muted-foreground text-xs">
-                        {new Date(c.lastInteractionAt).toLocaleString("fr-CD")}
+                        {formatDateTime(c.lastInteractionAt)}
                       </time>
                     ) : null}
                   </div>
@@ -116,10 +130,7 @@ export default async function CustomersPage({ searchParams }: Props) {
                   {c.tags.length > 0 ? (
                     <div className="mt-2 flex flex-wrap gap-1">
                       {c.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="bg-muted rounded px-1.5 py-0.5 text-[10px]"
-                        >
+                        <span key={t} className="badge-muted">
                           {t}
                         </span>
                       ))}

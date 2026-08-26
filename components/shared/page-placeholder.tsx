@@ -1,11 +1,12 @@
+import { EmptyState } from "@/components/shared/empty-state";
+
 type PagePlaceholderProps = {
   description: string;
 };
 
+/** @deprecated Prefer EmptyState for branded empty screens. */
 export function PagePlaceholder({ description }: PagePlaceholderProps) {
   return (
-    <p className="text-muted-foreground max-w-prose text-sm leading-relaxed">
-      {description}
-    </p>
+    <EmptyState title="Bientôt disponible" description={description} />
   );
 }
