@@ -67,3 +67,21 @@ export const SUGGESTED_CUSTOMER_TAGS = [
   "VIP",
   "Inactif",
 ] as const;
+
+export const CUSTOMER_STATUSES = ["Nouveau", "Actif", "VIP", "Inactif"] as const;
+export type CustomerStatus = (typeof CUSTOMER_STATUSES)[number];
+
+export const updateCustomerStatusSchema = z.object({
+  id: z.string().uuid(),
+  status: z.enum(CUSTOMER_STATUSES),
+});
+
+export const addNoteSchema = z.object({
+  customerId: z.string().uuid(),
+  content: z.string().trim().min(1, "La note ne peut pas être vide.").max(2000),
+});
+
+export const deleteNoteSchema = z.object({
+  noteId: z.string().uuid(),
+  customerId: z.string().uuid(),
+});
