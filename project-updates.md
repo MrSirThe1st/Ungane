@@ -18,6 +18,12 @@ Use this file as the first project memory source before searching the codebase.
 - Impact: <contracts, tables, routes, folders, logic>
 - Tests: <added, updated, or deferred>
 
+## 2026-09-03
+- Change type: Other
+- Description: Recorded product direction & strategic vision — UNGANE evolves into an AI-powered customer relationship/engagement platform for African businesses (messaging-first). Docs-only; no app/schema/feature implementation. Emphasizes evolve-not-rebuild, multi-channel-ready architecture later, Customer 360 / AI / follow-ups / segments / pipeline / appointments / catalog / loyalty / insights as future work only when tasked. Distinct from commerce-first conversational platforms.
+- Impact: `docs/context/product-direction.md` (new), `docs/context/{vision,product,project-context}.md`, `docs/blueprint/ai/AGENT_RULES.md`
+- Tests: deferred (docs only)
+
 ## 2026-08-26
 - Change type: Frontend
 - Description: Brand polish with green tokens — EmptyState + StatusBadge, mobile sign-out, fr-CD format helpers, BrandProvider wiring useAppName to active business.

@@ -2,19 +2,37 @@
 
 ## Product Scope
 
-WhatsApp-first CRM and automation for African businesses (Congo-first, French-first).
+AI-powered customer relationship and engagement platform for African businesses (Congo-first, French-first). Messaging-first today (WhatsApp); multi-channel later (e.g. Facebook Messenger).
 
-Core entities: Business, User, Customer, Conversation, Message, Campaign, Template. Flows/Appointments/Reviews come later.
+Core entities today: Business, User, Customer, Conversation, Message, Campaign, Template, Flow. Appointments, catalog, pipeline, loyalty, AI assistant, and full Customer 360 come later — only when explicitly tasked.
 
-- End customers use WhatsApp only — no tenant mobile app.
-- Defer platform admin, payments, AI chatbots, and drag-and-drop builders unless asked.
+- End customers use messaging only — no customer UNGANE app.
+- Businesses use the UNGANE web app.
+- Defer platform admin, payments, AI chatbots, multi-channel, drag-and-drop builders, and other product-direction futures unless asked.
 - Single Next.js app. No monorepo.
+- Strategic path: Conversation → Customer → Relationship → Engagement → Retention → Growth (not commerce/payments/logistics-first).
+
+Long-term direction: [`docs/context/product-direction.md`](../../context/product-direction.md). That file is **directional** — never treat it as an implementation brief by itself.
+
+## Evolution principles (always)
+
+1. Inspect the existing codebase first.
+2. Preserve working functionality.
+3. Extend existing models and components where appropriate.
+4. Avoid unnecessary rewrites — evolve UNGANE, do not rebuild it.
+5. Do not prematurely implement future features from product-direction.
+6. Keep architecture capable of supporting multiple messaging channels.
+7. Keep customer identity separate from individual messaging channels.
+8. Keep business / customer / conversation concepts cleanly separated.
+9. Prefer simple workflows for non-technical African SMB users.
+10. Do not add complexity merely because competitors have a feature.
 
 ## Before Every Task
 
 1. Read `project-updates.md` first.
 2. Read `docs/context/project-context.md` for product truth (root `project-context.md` is a stub pointer).
-3. If the task is ambiguous or touches schema, auth, WhatsApp provider boundaries, or large refactors → ask before proceeding.
+3. Skim `docs/context/product-direction.md` when the task affects product scope or architecture (alignment only).
+4. If the task is ambiguous or touches schema, auth, WhatsApp provider boundaries, or large refactors → ask before proceeding.
 
 ## Standards (always enforced)
 
@@ -100,6 +118,8 @@ Mental model: **Server = truth · Cache = speed · Client = interaction**
 4. Campaigns + templates
 5. Flow templates (booking / feedback / reminder)
 6. Analytics + platform admin
+
+Further roadmap items (Customer 360, AI assistant, Messenger, pipeline, appointments, catalog, loyalty, AI insights) live in `product-direction.md` and ship only when a task explicitly requests them.
 
 ## Auth Reminder
 
