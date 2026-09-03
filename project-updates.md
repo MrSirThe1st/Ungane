@@ -19,6 +19,12 @@ Use this file as the first project memory source before searching the codebase.
 - Tests: <added, updated, or deferred>
 
 ## 2026-09-03
+- Change type: DB | Frontend | API
+- Description: Customer 360 v1 — status field + customer_notes table; getCustomer360 aggregates conversations, appointments, campaign touches; inline status selector; notes add/delete; CustomerTimeline activity panel; rebuilt customer detail page as full 360 layout.
+- Impact: `supabase/migrations/20260903120000_customer_360.sql`, `lib/customers/actions.ts`, `lib/validations/customer.ts`, `components/customers/{customer-status-select,customer-notes,customer-timeline}.tsx`, `app/(app)/customers/[id]/page.tsx`
+- Tests: deferred (manual — start dev server, open a customer, verify 360 layout, add/delete note, change status)
+
+## 2026-09-03
 - Change type: Other
 - Description: Recorded product direction & strategic vision — UNGANE evolves into an AI-powered customer relationship/engagement platform for African businesses (messaging-first). Docs-only; no app/schema/feature implementation. Emphasizes evolve-not-rebuild, multi-channel-ready architecture later, Customer 360 / AI / follow-ups / segments / pipeline / appointments / catalog / loyalty / insights as future work only when tasked. Distinct from commerce-first conversational platforms.
 - Impact: `docs/context/product-direction.md` (new), `docs/context/{vision,product,project-context}.md`, `docs/blueprint/ai/AGENT_RULES.md`
